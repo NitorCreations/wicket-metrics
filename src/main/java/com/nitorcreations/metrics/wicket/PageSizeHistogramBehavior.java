@@ -1,7 +1,6 @@
 package com.nitorcreations.metrics.wicket;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Session;
 import org.apache.wicket.behavior.Behavior;
 
 import com.yammer.metrics.Metrics;
@@ -21,7 +20,7 @@ public class PageSizeHistogramBehavior extends Behavior {
     @Override
     public void afterRender(Component component) {
         Histogram histogram = Metrics.newHistogram(componentClazz, "Page size in Bytes");
-        histogram.update(Session.get().getSizeInBytes());
+        histogram.update(component.getPage().getSizeInBytes());
     }
 
 }
