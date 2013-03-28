@@ -8,7 +8,7 @@
 	<groupId>com.nitorcreations</groupId>
 	<artifactId>wicket-metrics</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>wicket-metrics</name>
 	<url>https://github.com/NitorCreations/wicket-metrics</url>
 	<description>Painless way of adding JMX metrics to your wicket project.</description>
