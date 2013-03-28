@@ -7,6 +7,10 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import com.yammer.metrics.Metrics;
 import com.yammer.metrics.core.Histogram;
 
+/**
+ * Attach this to your {@link RequestCycle} and you will get JMX metrics about the session size in
+ * Bytes.
+ */
 public class SessionSizeHistogramRequestCycleListener extends AbstractRequestCycleListener {
 
     @Override
