@@ -1,6 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 	<groupId>com.nitorcreations</groupId>
 	<artifactId>wicket-metrics</artifactId>
 	<packaging>jar</packaging>
@@ -9,32 +14,33 @@
 	<url>https://github.com/NitorCreations/wicket-metrics</url>
 	<description>Painless way of adding JMX metrics to your wicket project.</description>
 	<scm>
-        <developerConnection>scm:git:git@github.com:NitorCreations/wicket-metrics.git</developerConnection>
-        <connection>scm:git:git@github.com:NitorCreations/wicket-metrics.git</connection>
-	</scm>
-    <prerequisites>
-        <maven>3.0.3</maven>
-    </prerequisites>
-    <developers>
-        <developer>
-            <id>vertti</id>
-            <name>Janne Sinivirta</name>
-            <email>janne.sinivirta@nitorcreations.com</email>
-        </developer>
-        <developer>
-            <id>rjokelai</id>
-            <name>Reko Jokelainen</name>
-            <email>reko.jokelainen@nitorcreations.com</email>
-        </developer>
-    </developers>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    
+		<developerConnection>scm:git:git@github.com:NitorCreations/wicket-metrics.git</developerConnection>
+		<connection>scm:git:git@github.com:NitorCreations/wicket-metrics.git</connection>
+    	<url>git@github.com:NitorCreations/wicket-metrics.git</url>
+    </scm>
+	<prerequisites>
+		<maven>3.0.3</maven>
+	</prerequisites>
+	<developers>
+		<developer>
+			<id>vertti</id>
+			<name>Janne Sinivirta</name>
+			<email>janne.sinivirta@nitorcreations.com</email>
+		</developer>
+		<developer>
+			<id>rjokelai</id>
+			<name>Reko Jokelainen</name>
+			<email>reko.jokelainen@nitorcreations.com</email>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
@@ -59,10 +65,50 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-            <scope>provided</scope>
-        </dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
