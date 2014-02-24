@@ -4,8 +4,8 @@ import org.apache.wicket.Session;
 import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
 import org.apache.wicket.request.cycle.RequestCycle;
 
-import com.yammer.metrics.Metrics;
-import com.yammer.metrics.core.Histogram;
+import com.codahale.metrics.Histogram;
+import com.codahale.metrics.MetricRegistry;
 
 /**
  * Attach this to your {@link RequestCycle} and you will get JMX metrics about the session size in
@@ -17,7 +17,7 @@ public class SessionSizeHistogramRequestCycleListener extends AbstractRequestCyc
     public void onBeginRequest(RequestCycle cycle) {
         super.onBeginRequest(cycle);
 
-        Histogram histogram = Metrics.newHistogram(getClass(), "Session size in Bytes");
+        Histogram histogram = new MetricRegistryRom().getObject().histogram(MetricRegistry.name(getClass(), "Session size in Bytes"));
         histogram.update(Session.get().getSizeInBytes());
     }
 

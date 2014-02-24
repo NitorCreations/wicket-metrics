@@ -1,22 +1,26 @@
 package com.nitorcreations.metrics.wicket;
 
-import static org.hamcrest.Matchers.hasKey;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
+import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.yammer.metrics.Metrics;
-import com.yammer.metrics.core.MetricName;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.servlets.MetricsServlet;
+
 
 public class SessionSizeHistogramRequestCycleListenerTest {
 
+	private MetricRegistry registry;
     @Before
     public void setup() {
         @SuppressWarnings("unused")
         WicketTester tester = new WicketTester();
+        registry = new MetricRegistry();
+		WebApplication.get().getServletContext().setAttribute(MetricsServlet.METRICS_REGISTRY,  registry);
     }
 
     @Test
@@ -26,9 +30,9 @@ public class SessionSizeHistogramRequestCycleListenerTest {
 
         listener.onBeginRequest(rq);
 
-        MetricName expectedName = new MetricName("com.nitorcreations.metrics.wicket",
+        String expectedName = MetricRegistry.name("com.nitorcreations.metrics.wicket",
                 "SessionSizeHistogramRequestCycleListener", "Session size in Bytes");
 
-        assertThat(Metrics.defaultRegistry().allMetrics(), hasKey(expectedName));
+        assertTrue(registry.getHistograms().containsKey(expectedName));
     }
 }
